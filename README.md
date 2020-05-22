@@ -1,6 +1,8 @@
 # lol, limewire
 A personal project, I don't really know what it is yet
+
 There is a degree of probability that either a part of it or it as a whole don't work
+
 Also I don't know the degree of probability
 
 I strongly suggest not running this on a used/important mac
