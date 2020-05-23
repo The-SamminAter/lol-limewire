@@ -28,3 +28,9 @@ To do:
   - [ ] Add `-no` variable to stop that from happening
 - [ ] Check if the LaunchAgent is created properly
 - [ ] Check if the LaunchAgent runs properly
+- [ ] Decide on and create trigger for Stage 2 start
+- [ ] Decide and/or generate placement of Stage 2
+- [ ] Network monitors
+  - [ ] Add newest Little Snitch killing
+  - [ ] Add LuLu killing
+  - [ ] Add Hands Off! killing
