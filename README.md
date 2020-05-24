@@ -34,3 +34,6 @@ To do:
   - [ ] Add newest Little Snitch killing
   - [ ] Add LuLu killing
   - [ ] Add Hands Off! killing
+
+## Stage 2
+- Something to do with `Icon?`
