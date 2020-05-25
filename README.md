@@ -1,7 +1,7 @@
 # lol, limewire
 A personal project, I don't really know what it is yet.
 
-I guess it's me seeing how far I can go with bash, as that is currently my main language. I find it interesting how it is possible to reach/do the same things in different languages, to an extent at least. 
+I guess it's me seeing how far I can go with bash, as that is currently my main (and favourite) language. I find it interesting how it is possible to reach/do the same things in different languages, to an extent at least. 
 
 
 
