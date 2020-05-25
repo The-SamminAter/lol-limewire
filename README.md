@@ -3,7 +3,7 @@ A personal project, I don't really know what it is yet.
 
 I guess it's me seeing how far I can go with bash, as that is currently my main (and favourite) language. I find it interesting how it is possible to reach/do the same things in different languages, to an extent at least. 
 
-
+Now, bash is command-line language/interface, so it's not comparable to C or Swift for practical every-day use, right? But, as R0wDrunner put perfectly, "your solutions are sometimes weird as fuck", and indeed, this is one of those (weird solutions).
 
 ---
 
