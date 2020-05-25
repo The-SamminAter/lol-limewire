@@ -22,6 +22,7 @@ I named this lol, limewire because the song is stuck in my head.
 Stage one pretty much replicates itself and makes sure that it gets ran
 
 To do:
+- [ ] Create and write to record
 - [ ] Check if the/this/a script is already present in the app folder
 - [ ] Test if the app or executable is protected
 - [ ] Replicate itself
