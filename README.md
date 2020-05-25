@@ -1,6 +1,11 @@
 # lol, limewire
-A personal project, I don't really know what it is yet
+A personal project, I don't really know what it is yet.
 
+I guess it's me seeing how far I can go with bash, as that is currently my main language. I find it interesting how it is possible to reach/do the same things in different languages, to an extent at least. 
+
+
+
+---
 
 There is a degree of probability that either a part of it or it as a whole don't work
 
