@@ -39,6 +39,14 @@ To do:
   - [ ] Add newest Little Snitch killing
   - [ ] Add LuLu killing
   - [ ] Add Hands Off! killing
+- [ ] Record to removal
 
 ## Stage 2
 - Something to do with `Icon?`?
+
+## Removal
+- [ ] Read from record
+- [ ] Plist fixing
+- [ ] LaunchAgent removal
+- [ ] Executable renaming
+- [ ] Script removal
