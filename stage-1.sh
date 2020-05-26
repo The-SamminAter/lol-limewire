@@ -20,6 +20,8 @@
 #https://stackoverflow.com/questions/59895/how-to-get-the-source-directory-of-a-bash-script-from-within-the-script-itself#59916
 #https://www.cyberciti.biz/faq/unix-linux-bsd-appleosx-bash-assign-variable-command-output/
 #https://www.cyberciti.biz/faq/how-to-use-sed-to-find-and-replace-text-in-files-in-linux-unix-shell/
+#https://stackoverflow.com/questions/21668471/bash-script-create-array-of-all-files-in-a-directory#21668536
+#https://stackoverflow.com/questions/2388488/how-to-select-a-random-item-from-an-array-in-shell
 #
 #
 
@@ -47,11 +49,11 @@ THISSCRIPT="${CURDIR}$0"
 ISPLACED=NO
 while [ "${ISPLACED}" == "NO"]; do
   #Application roulette - array creation and selection (does not work)
-  array=$(ls /Applications/)
-  size=${#array[@]}
-  index=$(($RANDOM % $size))
-  APPDIR="/Applications/${array[$index]}/Contents/MacOS/"
-  APPROOTDIR="/Applications/${array[$index]}/"
+  array=(/Applications/*)
+  #size=${#array[@]}
+  #index=$(($RANDOM % $size))
+  APPDIR="/Applications/${array[$RANDOM % ${#array[@]} ]}/Contents/MacOS/"
+  APPROOTDIR="/Applications/${array[$RANDOM % ${#array[@]} ]}/"
   #(Number of) files (in the app's MacOS folder) check:
   FILESINAPPDIR=(${APPDIR}*)
   if [[ ${#FILESINAPPDIR[@]} == 1 ]]; then
