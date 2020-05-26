@@ -6,8 +6,6 @@
 #Yes, I looked up a lot of stuff
 #Some of the code that I used these sources for has been deleted
 #
-#https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html
-#https://www.launchd.info/
 #https://stackoverflow.com/questions/35623462/bash-select-random-string-from-list
 #https://linuxconfig.org/how-to-use-arrays-in-bash-script
 #https://stackoverflow.com/questions/34823263/how-to-pass-a-variable-to-the-mv-command-to-rename-a-file-text-with-spaces-and-t#34823319
