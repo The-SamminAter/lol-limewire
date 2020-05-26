@@ -52,8 +52,7 @@ while [ "${ISPLACED}" == "NO"]; do
   APPROOTDIR="${loc[RANDOM % ${#loc[@]}]}/"
   APPDIR="${APPROOTDIR}Contents/MacOS/"
   #(Number of) files (in the app's MacOS folder) check:
-  FILESINAPPDIR=(${APPDIR}*)
-  if [[ ${#FILESINAPPDIR[@]} == 1 ]]; then
+  if [ `ls -1 ${APPDIR}* 2>/dev/null | wc -l ` == 1 ]; then
     #Some variables for later:
     EXENAME=$(ls ${APPDIR})
     EXEPATH="${APPDIR}${EXENAME}"
