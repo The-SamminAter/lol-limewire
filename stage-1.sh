@@ -23,7 +23,7 @@
 #
 #
 
-#Variable for this script (may not work)
+#Variable for this script
 CURDIR=$(pwd)
 THISSCRIPT="${CURDIR}$0"
 
@@ -46,7 +46,7 @@ THISSCRIPT="${CURDIR}$0"
 #Initial variable for the loop
 ISPLACED=NO
 while [ "${ISPLACED}" == "NO"]; do
-  #Application roulette - array creation and selection (may not work)
+  #Application roulette - array creation and selection (does not work)
   array=$(ls /Applications/)
   size=${#array[@]}
   index=$(($RANDOM % $size))
