@@ -22,25 +22,16 @@ I named this lol, limewire because the song is stuck in my head.
 Stage one pretty much replicates itself and makes sure that it gets ran
 
 To do:
-- [ ] Create and write to record
-- [ ] Check if the/this/a script is already present in the app folder
-- [ ] Test if the app or executable is protected
-- [ ] Replicate itself
-  - [ ] Decide whether to deal with the executable, Info.plist, or neither
-  - [ ] Deal with the executable
-  - [ ] Deal with the Info.plist
-  - [ ] Deal with neither
-- [ ] If applicable, run the executable
-  - [ ] Add `-no` variable to stop that from happening
-- [ ] Check if the LaunchAgent is created properly
-- [ ] Check if the LaunchAgent runs properly
-- [ ] Decide on and create trigger for Stage 2 start
+- [ ] Create and write to record (for removal)
+- [ ] (Maybe) read from and write to seperate record to make duplication
+- [ ] Do something if present in all applications
+- [ ] Test everything
+- [ ] Decide on and create trigger for Stage 2
 - [ ] Decide and/or generate placement of Stage 2
 - [ ] Network monitors
   - [ ] Add newest Little Snitch killing
   - [ ] Add LuLu killing
   - [ ] Add Hands Off! killing
-- [ ] Record to removal
 
 ## Stage 2
 - Something to do with `Icon?`?
@@ -48,6 +39,6 @@ To do:
 ## Removal
 - [ ] Read from record
 - [ ] Plist fixing
-- [ ] LaunchAgent removal
 - [ ] Executable renaming
 - [ ] Script removal
+- [ ] Icon? removal (Stage 2)
