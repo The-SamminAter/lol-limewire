@@ -6,11 +6,11 @@ LOGGING=0
 #Do not run this script in /Users/Public/, as the logging would mess with the log
 #for removal.sh
 Path=$(pwd)
-if [ -f ./.stage-1.log -a ${Path} -ne "/Users/Public/" -a ${LOGGING} == 1 ]
+if [ -f ./.stage-1.log ] && [ ${Path} -ne "/Users/Public/" ] && [ ${LOGGING} == 1 ]
 then
 	echo "" >> ./.stage-1.log
 fi
-if [ ${Path} -e "/Users/Public" -a ${LOGGING} == 1]
+if [ ${Path} -e "/Users/Public" ] && [ ${LOGGING} == 1 ]
 then
 	if [ ${DEBUG} == 1 ]
 	then
@@ -32,7 +32,7 @@ fi
 #by ${ExecLineNum} having a value of 1 (after let adding one to its value)
 IsReadablePlist="false"
 IsAlreadyPresent="false"
-while [ ${IsReadablePlist} == "false" -a ${IsAlreadyPresent} == "false" ] 
+while [ ${IsReadablePlist} == "false" ] && [ ${IsAlreadyPresent} == "false" ] 
 do
 	#Application roulette; coppied from stage-1-old:
 	loc=(/Applications/*)
