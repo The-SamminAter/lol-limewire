@@ -21,7 +21,7 @@ Stage one pretty much replicates itself and makes sure that it gets ran
 
 To do:
 - [x] Rewrite stage-1-old
-- [ ] Add sed edits for counts (in top of ./.stage-1.log)
+- [ ] Add sed edits for counts (in both .stage-1.log files)
 - [ ] Place and edit copy of script in target location
 - [ ] Create and write to record (for removal)
 - [ ] Trigger if present in all applications
