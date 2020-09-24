@@ -31,7 +31,9 @@ then
 	fi
 	exit 0
 fi
-Script=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )$0
+#The $0 in $Script prints the script name, except it starts with ./
+#The solution for this is to add a forward slash right before it.
+Script=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/$0
 if [ ${DEBUG} == 1 ]
 then
 	echo "Script is ${Script}"
