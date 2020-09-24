@@ -13,7 +13,7 @@ then
 	RC01=$(sed -ne "1s/.*\(.\)$/\1/p" ./.stage-1.log)
 	RC02=${RC01}
 	let "RC02++"
-	sed -in "1s/${RC01}/${RC02}/" ./.stage-1.log
+	sed -i '' -n "1s/${RC01}/${RC02}/" ./.stage-1.log
 	echo "" >> ./.stage-1.log
 else
 	#Create local log and a run count (to be edited at the end)
