@@ -1,6 +1,6 @@
 #!/bin/bash
 #Stage 1, re-written:
-DEBUG=0
+DEBUG=1
 #Set $DEBUG to 1 to enable debugging
 Script=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )$0
 #It appears that some plists are gibberish for some reason, they can be identified 
