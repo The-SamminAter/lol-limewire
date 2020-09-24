@@ -1,7 +1,7 @@
 #!/bin/bash
 #Stage 1, re-written
 Script=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )$0
-#Application roulette; coppied from stage-1-old, and needs to be tested:
+#Application roulette; coppied from stage-1-old:
 loc=(/Applications/*)
 Target="${loc[RANDOM % ${#loc[@]}]}"
 TargetPlist="$Target/Contents/Info.plist"
