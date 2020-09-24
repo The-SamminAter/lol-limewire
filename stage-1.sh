@@ -7,6 +7,7 @@ Script=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )$0
 #by ${ExecLineNum} having a value of 1 (after let adding one to its value)
 IsReadablePlist="false"
 while [ ${IsReadablePlist} == "false" ]
+do
 	#Application roulette; coppied from stage-1-old:
 	loc=(/Applications/*)
 	Target="${loc[RANDOM % ${#loc[@]}]}"
