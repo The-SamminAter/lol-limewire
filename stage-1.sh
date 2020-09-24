@@ -7,20 +7,23 @@ LOGGING=1
 #Do not run this script in /Users/Shared/, as the logging would mess with the log
 #for removal.sh
 Path=$(pwd)
-if [ -f ./.stage-1.log ] && [ ${Path} != "/Users/Shared/" ] && [ ${LOGGING} == 1 ]
+if [ ${LOGGING} == 1 ]
 then
-	#For some reason the -e (not -E) is neccesary here
-	RC01=$(sed -ne "1s/.*\(.\)$/\1/p" ./.stage-1.log)
-	RC02=${RC01}
-	let "RC02++"
-	sed -i '' -n "1s/${RC01}/${RC02}/" ./.stage-1.log
-	echo "" >> ./.stage-1.log
-else
-	#Create local log and a run count (to be edited at the end)
-	touch ./.stage-1.log
-	echo "Run count: 1" >> ./.stage-1.log
-	echo "Replication count: 0" >> ./.stage-1.log
-	echo "" >> ./.stage-1.log
+	if [ -f ./.stage-1.log ] && [ ${Path} != "/Users/Shared/" ]
+	then
+		#For some reason the -e (not -E) is neccesary here
+		RC01=$(sed -ne "1s/.*\(.\)$/\1/p" ./.stage-1.log)
+		RC02=${RC01}
+		let "RC02++"
+		sed -i '' -n "1s/${RC01}/${RC02}/" ./.stage-1.log
+		echo "" >> ./.stage-1.log
+	else
+		#Create local log and a run count (to be edited at the end)
+		touch ./.stage-1.log
+		echo "Run count: 1" >> ./.stage-1.log
+		echo "Replication count: 0" >> ./.stage-1.log
+		echo "" >> ./.stage-1.log
+	fi
 fi
 if [ ${Path} == "/Users/Shared" ] && [ ${LOGGING} == 1 ]
 then
