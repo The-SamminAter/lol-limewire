@@ -115,11 +115,11 @@ do
 		then
 			if [ ${DEBUG} == 1 ]
 			then
-				echo "TmpName (${TmpName}) deleted"
+				echo "TmpName file deleted"
 			fi
 			if [ ${LOGGING} == 1 ]
 			then
-				echo "TmpName (${TmpName}) deleted" >> ./.stage-1.log
+				echo "TmpName file deleted" >> ./.stage-1.log
 			fi
 		fi
 		#If ${ExecName} starts with a . (aka is hidden) then repeat this loop
