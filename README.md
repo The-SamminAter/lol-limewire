@@ -20,12 +20,11 @@ I named this lol, limewire because the song is stuck in my head.
 Stage one pretty much replicates itself and makes sure that it gets ran
 
 To do:
-- [x] Completely rewrite stage-1-old
+- [x] Rewrite stage-1-old
+- [ ] Add sed edits for counts (in top of ./.stage-1.log)
+- [ ] Place and edit copy of script in target location
 - [ ] Create and write to record (for removal)
-- [ ] Do something if present in all applications
-- [ ] Test everything
-- [ ] Decide on and create trigger for Stage 2
-- [ ] Decide and/or generate placement of Stage 2
+- [ ] Trigger if present in all applications
 - [ ] Network monitors
   - [ ] Add newest Little Snitch killing
   - [ ] Add LuLu killing
