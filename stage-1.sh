@@ -47,10 +47,12 @@ do
 	TargetPlist="${Target}/Contents/Info.plist"
 	if [ ${DEBUG} == 1 ]
 	then
-		echo "Target is ${Target} and TargetPlist is ${TargetPlist}"
+		echo "Target is ${Target}"
+		echo "TargetPlist is ${TargetPlist}"
 		if [ ${LOGGING} == 1 ]
 		then
-			echo "Target is ${Target} and TargetPlist is ${TargetPlist}" >> ./.stage-1.log
+			echo "Target is ${Target}" >> ./.stage-1.log
+			echo "TargetPlist is ${TargetPlist}" >> ./.stage-1.log
 		fi
 	fi
 	#Using sed to get the line number where the executable name is stored in the
