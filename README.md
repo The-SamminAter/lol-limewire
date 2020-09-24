@@ -26,6 +26,7 @@ To do:
   - [x] For LOGGING log (runs)
   - [ ] For LOGGING log (replications)
   - [ ] For log for removal
+- [ ] Add checks to prevent choosing /Applications/Utilities/
 - [ ] Place and edit copy of script in target location
 - [ ] Create and write to record (for removal)
 - [ ] Trigger if present in all applications
