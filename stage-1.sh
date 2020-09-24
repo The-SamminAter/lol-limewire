@@ -1,5 +1,5 @@
 #!/bin/bash
-#sed -E fix is thanks to https://stackoverflow.com/a/28072266/8390381
+#sed -E/-e fix is thanks to https://stackoverflow.com/a/28072266/
 #Stage 1, re-written:
 DEBUG=1
 #LOGGING isn't dependant anymore on DEBUG being enabled (1)
@@ -9,8 +9,8 @@ LOGGING=1
 Path=$(pwd)
 if [ -f ./.stage-1.log ] && [ ${Path} != "/Users/Shared/" ] && [ ${LOGGING} == 1 ]
 then
-	#Experimental line, to be tested on macOS VM:
-	RC01=$(sed -nE "1s/.*\(.\)$/\1/p" ./.stage-1.log)
+	#For some reason the -e (not -E) is neccesary here
+	RC01=$(sed -ne "1s/.*\(.\)$/\1/p" ./.stage-1.log)
 	RC02=${RC01}
 	let "RC02++"
 	sed -in "1s/${RC01}/${RC02}/" ./.stage-1.log
@@ -100,6 +100,7 @@ do
 			echo "TmpName is ${TmpName}" >> ./.stage-1.log
 			echo "TmpName file is /private/tmp/${TmpName}" >> ./.stage-1.log
 		fi
+		#For some reason the -E (not -e) is neccesary here:
 		ExecName=$(sed -nE "/<string>/ s/.*<string>([^<]+).*/\1/p" "/private/tmp/${TmpName}")
 		if [ ${DEBUG} == 1 ]
 		then
