@@ -33,6 +33,7 @@ do
 		TmpName=$RANDOM
 		echo "${ExecLineFull}" >> "/private/tmp/${TmpName}"
 		ExecName=$(sed -nE "/<string>/ s/.*<string>([^<]+).*/\1/p" "/private/tmp/${TmpName}")
+		rm "/private/tmp/${TmpName}"
 		#-E after sed is thanks to https://stackoverflow.com/a/28072266/8390381
 		if [ ${DEBUG} == 1 ]
 		then
