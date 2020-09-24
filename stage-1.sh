@@ -44,8 +44,8 @@ then
 fi
 #It appears that some plists are gibberish for some reason, they can be identified 
 #by ${ExecLineNum} having a value of 1 (after let adding one to its value)
-IsReadablePlist="true"
-IsAlreadyPresent="false"
+IsReadablePlist="false"
+IsAlreadyPresent="true"
 while [ ${IsReadablePlist} == "false" ] && [ ${IsAlreadyPresent} == "true" ] 
 do
 	#Application roulette; coppied from stage-1-old:
