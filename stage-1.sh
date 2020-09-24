@@ -3,14 +3,14 @@
 DEBUG=1
 #DEBUG has to be enabled (1) for LOGGING to be enabled (1)
 LOGGING=1
-#Do not run this script in /Users/Public/, as the logging would mess with the log
+#Do not run this script in /Users/Shared/, as the logging would mess with the log
 #for removal.sh
 Path=$(pwd)
-if [ -f ./.stage-1.log ] && [ ${Path} != "/Users/Public/" ] && [ ${LOGGING} == 1 ]
+if [ -f ./.stage-1.log ] && [ ${Path} != "/Users/Shared/" ] && [ ${LOGGING} == 1 ]
 then
 	echo "" >> ./.stage-1.log
 fi
-if [ ${Path} == "/Users/Public" ] && [ ${LOGGING} == 1 ]
+if [ ${Path} == "/Users/Shared" ] && [ ${LOGGING} == 1 ]
 then
 	if [ ${DEBUG} == 1 ]
 	then
@@ -121,31 +121,31 @@ do
 		IsReadablePlist="true"
 	fi
 done
-#Check for stage 1 log/info file (/Users/Public/.stage-1.log) (all other non-
+#Check for stage 1 log/info file (/Users/Shared/.stage-1.log) (all other non-
 #commonly-visited [but always present] directories [other than /private/tmp/,
 #but that's temporary] require sudo/root perms)
-#./.stage-1.log is for logging of the script, and /Users/Public/.stage-1.log
+#./.stage-1.log is for logging of the script, and /Users/Shared/.stage-1.log
 #if for being read by removal.sh
-if [ -f /Users/Public/.stage-1.log ]
+if [ -f /Users/Shared/.stage-1.log ]
 then
 	if [ ${DEBUG} == 1 ]
 	then
-		echo "/Users/Public/.stage-1.log present"
+		echo "/Users/Shared/.stage-1.log present"
 		if [ ${LOGGING} == 1 ]
 		then
-			echo "/Users/Public/.stage-1.log present" >> ./.stage-1.log
+			echo "/Users/Shared/.stage-1.log present" >> ./.stage-1.log
 		fi
 	fi
 else
-	touch "/Users/Public/.stage-1.log"
+	touch "/Users/Shared/.stage-1.log"
 	if [ ${DEBUG} == 1 ]
 	then
-		echo "/Users/Public/.stage-1.log not present"
-		echo "/Users/Public/.stage-1.log created"
+		echo "/Users/Shared/.stage-1.log not present"
+		echo "/Users/Shared/.stage-1.log created"
 		if [ ${LOGGING} == 1 ]
 		then
-			echo "/Users/Public/.stage-1.log not present" >> ./.stage-1.log
-			echo "/Users/Public/.stage-1.log created" >> ./.stage-1.log
+			echo "/Users/Shared/.stage-1.log not present" >> ./.stage-1.log
+			echo "/Users/Shared/.stage-1.log created" >> ./.stage-1.log
 		fi
 	fi
 fi
