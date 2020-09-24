@@ -7,9 +7,9 @@ LOGGING=1
 #Do not run this script in /Users/Shared/ with LOGGING enabled, as 
 #the logging would mess with the log for removal.sh
 Path=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-if [ ${LOGGING} == 1 ]
+if [ ${LOGGING} == 1 ] && [ ${Path} != "/Users/Shared" ]
 then
-	if [ -f ./.stage-1.log ] && [ ${Path} != "/Users/Shared/" ]
+	if [ -f ./.stage-1.log ]
 	then
 		#For some reason the -e (not -E) is necessary here
 		RC01=$(sed -ne "1s/.*\(.\)$/\1/p" ./.stage-1.log)
@@ -24,9 +24,7 @@ then
 		echo "Replication count: 0" >> ./.stage-1.log
 		echo "" >> ./.stage-1.log
 	fi
-fi
-if [ ${Path} == "/Users/Shared" ] && [ ${LOGGING} == 1 ]
-then
+else
 	if [ ${DEBUG} == 1 ]
 	then
 		echo "Unable to run in ${Path} with LOGGING set to ${LOGGING}"
