@@ -76,6 +76,14 @@ do
 		echo "${ExecLineFull}" >> "/private/tmp/${TmpName}"
 		ExecName=$(sed -nE "/<string>/ s/.*<string>([^<]+).*/\1/p" "/private/tmp/${TmpName}")
 		rm "/private/tmp/${TmpName}"
+		if [ ! -f "/private/tmp/${TmpName}" ] && [ ${DEBUG} == 1 ]
+		then
+			echo "TmpName (${TmpName}) deleted"
+			if [ ${LOGGING} == 1 ]
+			then
+				echo "TmpName (${TmpName}) deleted" >> ./.stage-1.log
+			fi
+		fi
 		#-E after sed is thanks to https://stackoverflow.com/a/28072266/8390381
 		if [ ${DEBUG} == 1 ]
 		then
