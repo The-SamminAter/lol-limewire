@@ -3,6 +3,10 @@
 DEBUG=1
 #Set $DEBUG to 1 to enable debugging
 Script=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )$0
+if [ ${DEBUG} == 1 ]
+then
+	echo "Script is ${Script}"
+fi
 #It appears that some plists are gibberish for some reason, they can be identified 
 #by ${ExecLineNum} having a value of 1 (after let adding one to its value)
 IsReadablePlist="false"
@@ -44,3 +48,4 @@ do
 		IsReadablePlist="true"
 	fi
 done
+#Section two: replication
