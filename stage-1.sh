@@ -2,7 +2,7 @@
 #Stage 1, re-written:
 DEBUG=1
 #DEBUG has to be enabled (1) for LOGGING to be enabled (1)
-LOGGING=0
+LOGGING=1
 #Do not run this script in /Users/Public/, as the logging would mess with the log
 #for removal.sh
 Path=$(pwd)
