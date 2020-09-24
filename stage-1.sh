@@ -87,6 +87,14 @@ do
 		fi
 		IsReadablePlist="false"
 	else
+		if [ ${DEBUG} == 1 ]
+		then
+			echo "IsReadablePlist == true"
+		fi
+		if [ ${LOGGING} == 1 ]
+		then
+			echo "IsReadablePlist == true" >> ./.stage-1.log
+		fi
 		ExecLineFull=$(sed -n "${ExecLineNum}p" "${TargetPlist}")
 		TmpName=$RANDOM
 		echo "${ExecLineFull}" >> "/private/tmp/${TmpName}"
@@ -136,14 +144,16 @@ do
 				echo "IsAlreadyPresent == true" >> ./.stage-1.log
 			fi
 			IsAlreadyPresent="true"
-		fi
-		if [ ${DEBUG} == 1 ]
-		then
-			echo "IsReadablePlist == true"
-		fi
-		if [ ${LOGGING} == 1 ]
-		then
-			echo "IsReadablePlist == true" >> ./.stage-1.log
+		else
+			if [ ${DEBUG} == 1 ]
+			then
+				echo "IsAlreadyPresent == false"
+			fi
+			if [ ${LOGGING} == 1 ]
+			then
+				echo "IsAlreadyPresent == false" >> ./.stage-1.log
+			fi
+			IsAlreadyPresent="false"
 		fi
 		IsReadablePlist="true"
 	fi
