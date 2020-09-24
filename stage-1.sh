@@ -13,7 +13,7 @@ else
 	#Create local log and a run count (to be edited at the end)
 	touch ./.stage-1.log
 	echo "Run count: 0" >> ./.stage-1.log
-	echo "Replication count: 0" ./.stage-1.log
+	echo "Replication count: 0" >> ./.stage-1.log
 	echo "Fails count: 0" >> ./.stage-1.log
 	echo "" >> ./.stage-1.log
 fi
