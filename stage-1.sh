@@ -6,7 +6,7 @@ DEBUG=1
 LOGGING=1
 #Do not run this script in /Users/Shared/, as the logging would mess with the log
 #for removal.sh
-Path=$(pwd)
+Path=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 if [ ${LOGGING} == 1 ]
 then
 	if [ -f ./.stage-1.log ] && [ ${Path} != "/Users/Shared/" ]
