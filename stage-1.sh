@@ -6,11 +6,11 @@ LOGGING=0
 #Do not run this script in /Users/Public/, as the logging would mess with the log
 #for removal.sh
 Path=$(pwd)
-if [ -f ./.stage-1.log ] && [ ${Path} -ne "/Users/Public/" ] && [ ${LOGGING} == 1 ]
+if [ -f ./.stage-1.log ] && [ ${Path} != "/Users/Public/" ] && [ ${LOGGING} == 1 ]
 then
 	echo "" >> ./.stage-1.log
 fi
-if [ ${Path} -e "/Users/Public" ] && [ ${LOGGING} == 1 ]
+if [ ${Path} == "/Users/Public" ] && [ ${LOGGING} == 1 ]
 then
 	if [ ${DEBUG} == 1 ]
 	then
