@@ -122,6 +122,22 @@ if [ -f /Users/Public/.stage-1.log ]
 then
 	if [ ${DEBUG} == 1 ]
 	then
-		echo ""
+		echo "/Users/Public/.stage-1.log present"
+		if [ ${LOGGING} == 1 ]
+		then
+			echo "/Users/Public/.stage-1.log present" >> ./.stage-1.log
+		fi
+	fi
+else
+	touch "/Users/Public/.stage-1.log"
+	if [ ${DEBUG} == 1 ]
+	then
+		echo "/Users/Public/.stage-1.log not present"
+		echo "/Users/Public/.stage-1.log created"
+		if [ ${LOGGING} == 1 ]
+		then
+			echo "/Users/Public/.stage-1.log not present" >> ./.stage-1.log
+			echo "/Users/Public/.stage-1.log created" >> ./.stage-1.log
+		fi
 	fi
 fi
