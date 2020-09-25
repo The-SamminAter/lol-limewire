@@ -22,6 +22,8 @@ Stage one pretty much replicates itself and makes sure that it gets ran
 To do:
 - [x] Rewrite stage-1-old
 - [x] Seperate DEBUG and LOGGING
+- [ ] Fix first log deletion issue
+- [ ] Fix junk log deletion
 - [ ] Add sed edits for counts 
   - [x] For LOGGING log (runs)
   - [ ] For LOGGING log (replications)
