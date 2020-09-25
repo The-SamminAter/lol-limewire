@@ -17,6 +17,7 @@ then
 		RC01=$(sed -ne "1s/.*\(.\)$/\1/p" ./.stage-1.log)
 		RC02=${RC01}
 		let "RC02++"
+		#This line seems to clear all text if there is a first line
 		sed -i '' -n "1s/${RC01}/${RC02}/" ./.stage-1.log
 		echo "" >> ./.stage-1.log
 	else
