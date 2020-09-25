@@ -6,6 +6,7 @@ DEBUG=1
 LOGGING=1
 #Do not run this script in /Users/Shared/ with LOGGING enabled, as 
 #the logging would mess with the log for removal.sh
+OrigPath=$(pwd)
 Path=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 cd "${Path}"
 if [ ${LOGGING} == 1 ] && [ ${Path} != "/Users/Shared" ]
@@ -191,3 +192,4 @@ else
 		echo "/Users/Shared/.stage-1.log created" >> ./.stage-1.log
 	fi
 fi
+cd "${OrigPath}"
