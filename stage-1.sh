@@ -7,6 +7,7 @@ LOGGING=1
 #Do not run this script in /Users/Shared/ with LOGGING enabled, as 
 #the logging would mess with the log for removal.sh
 Path=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+cd "${Path}"
 if [ ${LOGGING} == 1 ] && [ ${Path} != "/Users/Shared" ]
 then
 	if [ -f ./.stage-1.log ]
