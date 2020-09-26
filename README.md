@@ -4,7 +4,7 @@ A personal project, I don't really know what it is yet.
 ---
 
 # Disclaimer:
-### I am not responsible for any damage to your computer. Do not run any of the scripts contaied in this repo on a computer which you are not authorized to run this on (pretty much, anyone else's computer)
+### I am not responsible for any damage to your computer. Do not run any of the scripts contaied in this repo on a computer which you are not authorized to run this on (pretty much, anyone else's computer, unless you have their consent)
 
 ---
 
