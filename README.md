@@ -1,5 +1,5 @@
 # lol, limewire
-A personal project, I don't really know what it is yet.
+A personal project, I don't really know what or how much it will do yet.
 
 ---
 
