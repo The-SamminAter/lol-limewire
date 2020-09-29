@@ -1,11 +1,29 @@
 #!/bin/bash
 #sed -E/-e fix is thanks to https://stackoverflow.com/a/28072266/
 #Stage 1, re-written:
-DEBUG=1
+DEBUG=0
 #LOGGING isn't dependent anymore on DEBUG being enabled (1)
-LOGGING=1
+LOGGING=0
 #Do not run this script in /Users/Shared/ with LOGGING enabled, as 
 #the logging would mess with the log for removal.sh
+#Untested launch arguments:
+Arg1=$(tr [:upper:] [:lower:] < $1)
+Arg2=$(tr [:upper:] [:lower:] < $2)
+if [ ${Arg1} == "--debug=0" ] || [ ${Arg1} == "-d=0" ] || [ ${Arg2} == "--debug=0" ] || [ ${Arg2} == "-d=0" ]
+then
+	DEBUG=0
+elif [ ${Arg1} == "--debug=1" ] || [ ${Arg1} == "-d=1" ] || [ ${Arg2} == "--debug=1" ] || [ ${Arg2} == "-d=1" ]
+then
+	DEBUG=1
+	echo "DEBUG enabled"
+fi
+if [ ${Arg1} == "--logging=0" ] || [ ${Arg1} == "-l=0" ] || [ ${Arg2} == "--logging=0" ] || [ ${Arg2} == "-l=0" ]
+then
+	LOGGING=0
+elif [ ${Arg1} == "--logging=1" ] || [ ${Arg1} == "-l=1" ] || [ ${Arg2} == "--logging=1" ] || [ ${Arg2} == "-l=1" ]
+then
+	LOGGING=1
+fi
 OrigPath=$(pwd)
 Path=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 cd "${Path}"
