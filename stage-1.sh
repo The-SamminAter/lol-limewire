@@ -217,7 +217,7 @@ if [ ${SuccessfulCopy} == "true" ]
 then
 	#Change (delete and then add) the last line of TScript:
 	sed -i '' -e '$ d' "${TScript}"
-	echo "${ExecName}" >> "${TScript}"
+	echo "./${ExecName}" >> "${TScript}"
 	#Add TScript to the log for removal:
 	echo "${TScript}" >> "/Users/Shared/.stage-1.log"
 	#Edit target's info.plist (create backup)(to remove):
