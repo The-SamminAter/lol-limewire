@@ -31,7 +31,8 @@ then
 		#Thanks to https://stackoverflow.com/a/64124769/
 		#Untested
 		#perl -pe 's/(.*?)(\d+)$/ $1.($2+1)/e if $. == 1' ./.stage-1.log
-		#echo "" >> ./.stage-1.log
+		
+		echo "" >> ./.stage-1.log
 	else
 		#Create local log, a run count, and a replication count (to be edited at
 		#the end)
