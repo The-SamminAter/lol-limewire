@@ -13,7 +13,7 @@ if [ ${LOGGING} == 1 ] && [ ${Path} != "/Users/Shared" ]
 then
 	if [ -f ./.stage-1.log ]
 	then
-		#Original (last line didn't work)
+		#Original (didn't work):
 		#For some reason the -e (not -E) is necessary here
 		#RC01=$(sed -ne "1s/.*\(.\)$/\1/p" ./.stage-1.log)
 		#RC02=${RC01}
@@ -22,14 +22,14 @@ then
 		#sed -i '' -n "1s/${RC01}/${RC02}/" ./.stage-1.log
 		
 		#Thanks to https://stackoverflow.com/a/64124941/
-		#Untested
+		#Works:
 		RC01=$(sed -n "s/\(.*[^0-9]\)\([0-9]*\)$/\2/p;q" ./.stage-1.log)
 		RC02=${RC01}
 		let "RC02++"
 		sed -i '' "1s/${RC01}\$/${RC02}/" ./.stage-1.log
 
 		#Thanks to https://stackoverflow.com/a/64124769/
-		#Untested
+		#Doesn't work:
 		#perl -pe 's/(.*?)(\d+)$/ $1.($2+1)/e if $. == 1' ./.stage-1.log
 		
 		echo "" >> ./.stage-1.log
