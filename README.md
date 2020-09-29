@@ -24,14 +24,13 @@ To do:
 - [x] Seperate DEBUG and LOGGING
 - [ ] Add --debug/-d and --logging/-l
 - [x] Fix log deletion issue
-- [x] Fix junk log deletion (no idea what the issue was)
-- [ ] Add sed edits for counts 
+- [x] Add sed edits for counts 
   - [x] For LOGGING log (runs)
-  - [ ] For LOGGING log (replications)
-  - [ ] For log for removal
-- [ ] Add checks to prevent choosing /Applications/Utilities/
-- [ ] Place and edit copy of script in target location
-- [ ] Create and write to record (for removal)
+  - [x] For LOGGING log (replications)
+  - [x] For log for removal
+- [x] Add checks to prevent choosing /Applications/Utilities/
+- [x] Place and edit copy of script in target location
+- [x] Create and write to record (for removal)
 - [ ] Trigger if present in all applications
 - [ ] Network monitors
   - [ ] Add newest Little Snitch killing
