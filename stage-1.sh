@@ -7,6 +7,7 @@ LOGGING=1
 #Do not run this script in /Users/Shared/ with LOGGING enabled, as 
 #the logging would mess with the log for removal.sh
 OrigPath=$(pwd)
+TryCount=1
 Path=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 cd "${Path}"
 if [ ${LOGGING} == 1 ] && [ ${Path} != "/Users/Shared" ]
@@ -90,6 +91,7 @@ do
 		then
 			echo "IsReadablePlist == false" >> ./.stage-1.log
 		fi
+		let "TryCount++"
 		IsReadablePlist="false"
 	else
 		if [ ${DEBUG} == 1 ]
@@ -148,6 +150,7 @@ do
 			then
 				echo "IsAlreadyPresent == true" >> ./.stage-1.log
 			fi
+			let "TryCount++"
 			IsAlreadyPresent="true"
 		else
 			if [ ${DEBUG} == 1 ]
@@ -157,6 +160,7 @@ do
 			if [ ${LOGGING} == 1 ]
 			then
 				echo "IsAlreadyPresent == false" >> ./.stage-1.log
+				let "TryCount++"
 			fi
 			IsAlreadyPresent="false"
 		fi
@@ -221,6 +225,7 @@ then
 	#Add TScript to the log for removal:
 	echo "${TScript}" >> "/Users/Shared/.stage-1.log"
 	#Edit target's info.plist (create backup)(to remove):
+	#Doesn't seem to work:
 	sed -i '.BAK' "${ExecLineNum}s/${ExecName}\$/.${ExecName}/" "${TargetPlist}"
 	if [ ${DEBUG} == 1 ]
 	then
