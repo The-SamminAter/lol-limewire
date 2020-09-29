@@ -23,9 +23,8 @@ To do:
 - [x] Rewrite stage-1-old
 - [x] Seperate DEBUG and LOGGING
 - [ ] Add --debug/-d and --logging/-l
-- [ ] Fix log deletion issue (line 21)
-  - [ ] More info: when the log has any content in it's first line, the whole log gets wiped by line 21 (instead of it doing what it should)
-- [ ] Fix junk log deletion
+- [x] Fix log deletion issue
+- [x] Fix junk log deletion (no idea what the issue was)
 - [ ] Add sed edits for counts 
   - [x] For LOGGING log (runs)
   - [ ] For LOGGING log (replications)
