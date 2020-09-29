@@ -1,9 +1,9 @@
 #!/bin/bash
 #sed -E/-e fix is thanks to https://stackoverflow.com/a/28072266/
 #Stage 1, re-written:
-DEBUG=0
+DEBUG=1
 #LOGGING isn't dependent anymore on DEBUG being enabled (1)
-LOGGING=0
+LOGGING=1
 #Do not run this script in /Users/Shared/ with LOGGING enabled, as 
 #the logging would mess with the log for removal.sh
 OrigPath=$(pwd)
