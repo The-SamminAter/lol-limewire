@@ -1,10 +1,10 @@
 # lol, limewire
-A personal project, I don't really know what it is yet.
+A personal project, I don't really know what or how much it will do yet.
 
 ---
 
 # Disclaimer:
-### I am not responsible for any damage to your computer. Do not run any of the scripts contaied in this repo on a computer which you are not authorized to run this on (pretty much, anyone else's computer)
+### I am not responsible for any damage to your computer. Do not run any of the scripts contaied in this repo on a computer which you are not authorized to run this on (pretty much, anyone else's computer, unless you have their consent)
 
 ---
 
@@ -22,7 +22,9 @@ Stage one pretty much replicates itself and makes sure that it gets ran
 To do:
 - [x] Rewrite stage-1-old
 - [x] Seperate DEBUG and LOGGING
-- [ ] Fix first log deletion issue
+- [ ] Add --debug/-d and --logging/-l
+- [ ] Fix log deletion issue (line 21)
+  - [ ] More info: when the log has any content in it's first line, the whole log gets wiped by line 21 (instead of it doing what it should)
 - [ ] Fix junk log deletion
 - [ ] Add sed edits for counts 
   - [x] For LOGGING log (runs)
@@ -38,10 +40,13 @@ To do:
   - [ ] Add Hands Off! killing
 
 ## Stage 2
-- Something to do with `Icon?`?
+- [ ] Something to do with icon changing maybe?
+- [ ] Thing about, decide on, and write stage 2
+- [ ] Setup logging and debug hand-over from stage 1 (in stage 1)
 
 ## Removal
-- [ ] Read from record
-- [ ] Plist fixing
-- [ ] Script removal
-- [ ] Icon? removal (Stage 2)
+- [ ] Stage 1 removal
+  - [ ] Read from record
+  - [ ] Plist reverting (or restoring!!!)
+  - [ ] Script removal
+- [ ] Stage 2 removal
