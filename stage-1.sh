@@ -194,8 +194,4 @@ else
 		echo "/Users/Shared/.stage-1.log created" >> ./.stage-1.log
 	fi
 fi
-if [ -f "./.!*" ]
-then
-	rm "./.!*"
-fi
 cd "${OrigPath}"
