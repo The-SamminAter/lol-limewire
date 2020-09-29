@@ -13,25 +13,12 @@ if [ ${LOGGING} == 1 ] && [ ${Path} != "/Users/Shared" ]
 then
 	if [ -f ./.stage-1.log ]
 	then
-		#Original (didn't work):
-		#For some reason the -e (not -E) is necessary here
-		#RC01=$(sed -ne "1s/.*\(.\)$/\1/p" ./.stage-1.log)
-		#RC02=${RC01}
-		#let "RC02++"
-		#This line seems to clear all text if there is a first line
-		#sed -i '' -n "1s/${RC01}/${RC02}/" ./.stage-1.log
-		
 		#Thanks to https://stackoverflow.com/a/64124941/
 		#Works:
 		RC01=$(sed -n "s/\(.*[^0-9]\)\([0-9]*\)$/\2/p;q" ./.stage-1.log)
 		RC02=${RC01}
 		let "RC02++"
 		sed -i '' "1s/${RC01}\$/${RC02}/" ./.stage-1.log
-
-		#Thanks to https://stackoverflow.com/a/64124769/
-		#Doesn't work:
-		#perl -pe 's/(.*?)(\d+)$/ $1.($2+1)/e if $. == 1' ./.stage-1.log
-		
 		echo "" >> ./.stage-1.log
 	else
 		#Create local log, a run count, and a replication count (to be edited at
