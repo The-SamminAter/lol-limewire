@@ -20,6 +20,7 @@ I named this lol, limewire because the song is stuck in my head.
 Stage one pretty much replicates itself and makes sure that it gets ran
 
 To do:
+- [ ] Test everything
 - [x] Rewrite stage-1-old
 - [x] Seperate DEBUG and LOGGING
 - [ ] Add --debug/-d and --logging/-l
@@ -30,8 +31,9 @@ To do:
   - [x] For log for removal
 - [x] Add checks to prevent choosing /Applications/Utilities/
 - [x] Place and edit copy of script in target location
-- [x] Create and write to record (for removal)
-- [ ] Trigger if present in all applications
+- [ ] If Replication fails, remove the placed copy of the script
+- [ ] Rewrite creation and adition to log for removal, and actually make the log a removal script
+- [ ] Trigger if present in x applications
 - [ ] Network monitors
   - [ ] Add newest Little Snitch killing
   - [ ] Add LuLu killing
