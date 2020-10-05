@@ -1,5 +1,5 @@
 # lol, limewire
-A personal project, I don't really know what or how much it will do yet.
+A personal project, I guess it's a sort of malware, written in bash, for macOS.
 
 ---
 
@@ -8,13 +8,13 @@ A personal project, I don't really know what or how much it will do yet.
 
 ---
 
-I guess it's me seeing how far I can go with bash, as it's my favourite language. I find it interesting how it's possible to reach/do the same things in different languages, to an extent at least. 
+I find malware (and how it works) interesting, and I guess this is me making a simple peice of malware, in bash. This shouldn't damage your computer or system in any way, but will (presuming it works) spread itself to ensure it gets ran.
 
-Now, bash is command-line language/interface, so it's not comparable to regular languages for practical every-day use, right? But, as R0wDrunner put perfectly, "your solutions are sometimes weird as fuck", and indeed, this is one of those (weird solutions).
+To quote R0wDrunner, "your solutions are sometimes weird as fuck", and indeed, this is one of those (weird solutions).
 
 ---
 
-I named this lol, limewire because the song is stuck in my head.
+I named this lol, limewire because the [song](https://www.youtube.com/watch?v=SAp0xO-LwFs) was/is stuck in my head.
 
 ## Stage 1
 Stage one pretty much replicates itself and makes sure that it gets ran
@@ -31,7 +31,7 @@ To do:
   - [x] For log for removal
 - [x] Add checks to prevent choosing /Applications/Utilities/
 - [x] Place and edit copy of script in target location
-- [ ] If Replication fails, remove the placed copy of the script
+- [ ] If replication fails, remove the placed copy of the script
 - [ ] Rewrite creation and adition to log for removal, and actually make the log a removal script
 - [ ] Trigger if present in x applications
 - [ ] Network monitors
