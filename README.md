@@ -21,6 +21,7 @@ Stage one pretty much replicates itself and makes sure that it gets ran
 
 To do:
 - [ ] Test everything
+- [ ] Check and test line 219 and 299
 - [x] Rewrite stage-1-old
 - [x] Seperate DEBUG and LOGGING
 - [ ] Add --debug/-d and --logging/-l
