@@ -41,9 +41,8 @@ To do:
   - [ ] Add Hands Off! killing
 
 ## Stage 2
-- [ ] Something to do with icon changing maybe?
 - [ ] Thing about, decide on, and write stage 2
-- [ ] Setup logging and debug hand-over from stage 1 (in stage 1)
+- [ ] Setup logging and debug hand-over from stage 1
 
 ## Removal
 - [ ] Stage 1 removal
