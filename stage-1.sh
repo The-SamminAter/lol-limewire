@@ -326,6 +326,8 @@ then
 		then
 			echo "LuLu found. Killing..." >> ./.stage-1.log
 		fi
+		#Kill LuLu:
+		#placeholder
 	elif [ -d "$NMHO" ]
 	then
 		if [ ${DEBUG} == 1 ]
@@ -337,6 +339,7 @@ then
 			echo "Hands Off! found. Killing..." >> ./.stage-1.log
 		fi
 		#Kill Hands Off!:
+		#placeholder
 	elif [ -d "$NMLS" ]
 	then
 		if [ ${DEBUG} == 1 ]
