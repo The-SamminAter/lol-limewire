@@ -131,7 +131,7 @@ do
 			fi
 		fi
 		#If ${ExecName} starts with a . (aka is hidden) then repeat this loop
-		if [[ ${ExecName} = .* ]]
+		if [[ ${ExecName} == .* ]]
 		then
 			if [ ${DEBUG} == 1 ]
 			then
